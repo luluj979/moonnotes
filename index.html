@@ -7,152 +7,385 @@
 <title>Moonnotes ☾</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#f8f5fc;color:#3d3249;font-family:Arial,sans-serif}
-header{padding:22px;background:#fff;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e8deef}
-.logo{font-family:Georgia,serif;font-size:27px;color:#9b78bd}
-small{color:#9d91a8}
-.layout{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:calc(100vh - 81px)}
-aside{padding:24px 15px;background:#f1eaf8;border-right:1px solid #e7dcef}
-button{border:0;background:#e6d5f5;color:#674b82;border-radius:10px;padding:10px 15px;cursor:pointer}
-button:hover{background:#dcc5f0}
-nav button{display:block;width:100%;text-align:left;margin:7px 0;background:transparent}
-nav button.active{background:#e4d6f1}
-main{padding:35px;max-width:1000px;width:100%;margin:auto}
-.hero{padding:38px 25px;text-align:center;border-radius:23px;background:linear-gradient(120deg,#f8dfea,#e9e0fa);margin-bottom:26px}
-.hero h1{font-family:Georgia,serif;font-size:39px;margin:10px 0}
-.panel{background:#fff;border:1px solid #e9e1ed;border-radius:18px;padding:24px;margin-bottom:20px;box-shadow:0 4px 20px #6850790a}
-input,textarea{width:100%;font:inherit;color:#44384f;border:1px solid #e4d9eb;border-radius:10px;padding:12px;background:#fdfbff}
-input:focus,textarea:focus{outline:2px solid #c4a8de}
-#pageTitle{font-size:28px;font-family:Georgia,serif;border:0}
-textarea{min-height:310px;resize:vertical;line-height:1.8;margin-top:15px}
-.player{width:100%;height:160px;border:0;margin-top:15px;border-radius:10px}
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
-a{color:#8354ae}
-footer{font-size:12px;color:#94879c;margin-top:15px}
-@media(max-width:650px){.layout{grid-template-columns:1fr}aside{border:0;padding:12px}nav{display:flex;overflow:auto;gap:5px}nav button{min-width:130px}main{padding:16px}.hero h1{font-size:30px}}
+body{margin:0;color:#45384e;background:#faf7fd;font-family:Arial,sans-serif}
+button,input{font:inherit}
+button{cursor:pointer;border:0;background:#eee0fa;color:#654884;border-radius:10px;padding:10px}
+button:hover{background:#e0c8f2}
+header{padding:18px 26px;background:white;border-bottom:1px solid #e9deef;display:flex;justify-content:space-between}
+.logo{font:29px Georgia;color:#9470b7}
+small,.muted{color:#9689a1}
+.layout{display:grid;grid-template-columns:210px minmax(0,1fr);min-height:calc(100vh - 74px)}
+aside{background:#f2ebf8;padding:18px;border-right:1px solid #e5d9ee}
+aside button{display:block;width:100%;text-align:left;margin:7px 0}
+nav button{background:transparent}
+nav button.active{background:#e4d3f3}
+main{max-width:1030px;width:100%;margin:auto;padding:24px}
+.hero{background:linear-gradient(120deg,#f9dfeb,#e7e0fb);border-radius:20px;text-align:center;padding:29px 18px;margin-bottom:20px}
+.hero h1{font:35px Georgia;margin:10px 0}
+.panel{background:white;border:1px solid #eadfed;border-radius:18px;padding:20px;margin-bottom:20px;box-shadow:0 5px 20px #6e50800b}
+.panel h3{margin-top:0}
+input[type=text]{padding:12px;border:1px solid #e2d6e9;border-radius:10px;background:#fdfaff;color:#45384e;min-width:0;width:100%}
+.controls{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin:14px 0}
+.controls button{min-width:40px}
+#volume{width:110px;accent-color:#ac83cc}
+#player{width:100%;height:125px;border:0;border-radius:10px}
+.musicArea{display:none}
+#titleInput{border:none;font:30px Georgia;background:transparent;padding:12px 0}
+.toolbar{display:flex;flex-wrap:wrap;gap:6px;padding:12px 0;border-top:1px solid #eee4f2;border-bottom:1px solid #eee4f2}
+.toolbar button{font-size:14px;padding:8px 11px}
+#editor{min-height:350px;outline:none;padding:22px 5px;line-height:1.8;overflow-wrap:anywhere}
+#editor:empty:before{content:"Dear universe, today I'm manifesting... ✧";color:#afa1b8}
+#editor h2{font:27px Georgia;color:#70518c}
+#editor blockquote{border-left:3px solid #cca9de;padding-left:15px;color:#836a97}
+#editor img{max-width:100%;height:auto;border-radius:12px;display:block;margin:auto}
+#editor figure{text-align:center;margin:22px auto;max-width:650px}
+#editor figcaption{font-size:14px;color:#8b7d97;text-align:center;margin-top:9px;min-height:24px}
+#editor figcaption:empty:before{content:"Write a caption...";color:#b3a5bb}
+footer{color:#9a8da3;font-size:12px}
+a{color:#895eaa}
+@media(max-width:650px){
+.layout{grid-template-columns:1fr}
+aside{padding:12px}
+nav{display:flex;overflow:auto}
+nav button{min-width:135px}
+main{padding:14px}
+.hero h1{font-size:27px}
+}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">☾ moonnotes</div>
-  <small>my little universe ♡</small>
+<div class="logo">☾ moonnotes</div>
+<small>my little universe ♡</small>
 </header>
 <div class="layout">
 <aside>
-  <p>✧ MY SPACE</p>
-  <button onclick="addPage()">＋ New page</button>
-  <nav id="pages"></nav>
-  <button onclick="exportNotes()">↓ Backup notes</button>
+<p>✧ MY PAGES</p>
+<button onclick="addPage()">＋ New page</button>
+<nav id="pages"></nav>
+<button onclick="deletePage()">♡ Delete current page</button>
+<button onclick="backup()">↓ Backup journal</button>
 </aside>
 <main>
-  <section class="hero">
-    <div>✦ ☾ ✦</div>
-    <h1>Everything is unfolding for me.</h1>
-    <p>A peaceful place for my dreams, thoughts, and manifestations.</p>
-  </section>
-  <section class="panel">
-    <h3>♫ My SoundCloud</h3>
-    <p><small>Paste a public SoundCloud playlist or track URL.</small></p>
-    <input id="soundUrl" placeholder="https://soundcloud.com/..." aria-label="SoundCloud URL">
-    <div class="actions">
-      <button onclick="connectMusic()">Connect playlist ♡</button>
-      <button onclick="openMusic()">Open in SoundCloud ↗</button>
-    </div>
-    <div id="music"></div>
-    <footer>Some playlists may not permit embedded playback.</footer>
-  </section>
-  <section class="panel">
-    <input id="pageTitle" placeholder="Page title">
-    <textarea id="pageText" placeholder="Dear universe...
-
-I am grateful for...
-I am becoming...
-Everything I desire..."></textarea>
-    <footer id="saveStatus">Your words are saved automatically in this browser ♡</footer>
-  </section>
+<section class="hero">
+✦ ☾ ✦
+<h1>Everything is unfolding for me.</h1>
+<p>My thoughts, my dreams, my little universe ♡</p>
+</section>
+<section class="panel">
+<h3>♫ My SoundCloud</h3>
+<input id="soundUrl" type="text" placeholder="Paste a public SoundCloud playlist link">
+<div class="controls">
+<button onclick="connectMusic()">Connect ♡</button>
+<button onclick="openSoundCloud()">Open SoundCloud ↗</button>
+</div>
+<div class="musicArea" id="musicArea">
+<iframe id="player" title="SoundCloud player" allow="autoplay"></iframe>
+<div class="controls">
+<button onclick="musicControl('prev')" title="Previous">⏮</button>
+<button onclick="musicControl('toggle')" title="Play / Pause">⏯</button>
+<button onclick="musicControl('next')" title="Next">⏭</button>
+<button id="shuffleBtn" onclick="toggleShuffle()" title="Shuffle off">🔀</button>
+<span>🔊</span>
+<input id="volume" type="range" min="0" max="100" value="70" aria-label="Volume">
+<span id="volumeLabel">70%</span>
+</div>
+</div>
+<small>Skip buttons work with supported playlists. Playback depends on SoundCloud embedding permissions.</small>
+</section>
+<section class="panel">
+<input id="titleInput" type="text" placeholder="Untitled page" aria-label="Page title">
+<div class="toolbar" id="toolbar">
+<button data-cmd="bold" title="Bold"><b>B</b></button>
+<button data-cmd="italic" title="Italic"><i>I</i></button>
+<button data-cmd="underline" title="Underline"><u>U</u></button>
+<button data-block="h2">Heading</button>
+<button data-block="p">Normal</button>
+<button data-cmd="insertUnorderedList">• List</button>
+<button data-cmd="insertOrderedList">1. List</button>
+<button data-block="blockquote">❝ Quote</button>
+<button data-cmd="justifyCenter">Center</button>
+<button id="photoButton">＋ Photo</button>
+</div>
+<input type="file" id="photoInput" accept="image/*" hidden>
+<div id="editor" contenteditable="true" aria-label="Journal editor"></div>
+<footer id="status">Autosaved on this device ♡</footer>
+</section>
 </main>
 </div>
+<script src="https://w.soundcloud.com/player/api.js"></script>
 <script>
-const key="moonnotes-journal-v1";
-const musicKey="moonnotes-music-v1";
-const defaults=[
- {id:1,title:"♡ Love",text:"I deserve love that is mutual, peaceful, and kind."},
- {id:2,title:"✧ Money & abundance",text:"I am learning to make wise financial choices."},
- {id:3,title:"☾ Self-concept",text:"I am worthy, confident, and enough."},
- {id:4,title:"☆ Dream life",text:"I am creating a life that makes me happy."}
+const KEY="moonnotes-journal-v1";
+const MUSIC_KEY="moonnotes-music-v1";
+const DEFAULT=[
+{id:1,title:"♡ Love",html:"<p>I deserve love that is peaceful and mutual.</p>"},
+{id:2,title:"✧ Money",html:"<p>I make wise choices and create opportunities.</p>"},
+{id:3,title:"☾ Self concept",html:"<p>I am confident, capable, and worthy.</p>"},
+{id:4,title:"☆ Dream life",html:"<p>My dream life begins with the choices I make today.</p>"}
 ];
+const $=id=>document.getElementById(id);
 let pages;
 try{
- const stored=JSON.parse(localStorage.getItem(key));
- pages=Array.isArray(stored)&&stored.length?stored:defaults;
-}catch{pages=defaults;}
+let stored=JSON.parse(localStorage.getItem(KEY));
+pages=Array.isArray(stored)&&stored.length?stored:DEFAULT;
+}catch(e){pages=DEFAULT}
 let selected=pages[0].id;
-const $=id=>document.getElementById(id);
-const persist=()=>localStorage.setItem(key,JSON.stringify(pages));
+let widget=null;
+let ready=false;
+let savedRange=null;
+function escapeHTML(s){
+return String(s).replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+})[c]);
+}
+function persist(){
+try{
+localStorage.setItem(KEY,JSON.stringify(pages));
+$("status").textContent="Saved ♡";
+}catch(e){
+$("status").textContent="Storage full! Please back up your journal and use smaller photos.";
+alert("Browser storage is full. Back up your notes. Your latest change may not be saved.");
+}
+}
 function render(){
- $("pages").replaceChildren();
- pages.forEach(p=>{
-   const b=document.createElement("button");
-   b.textContent=p.title;
-   b.className=p.id===selected?"active":"";
-   b.onclick=()=>{selected=p.id;render()};
-   $("pages").append(b);
- });
- const p=pages.find(p=>p.id===selected);
- $("pageTitle").value=p.title;
- $("pageText").value=p.text;
+$("pages").replaceChildren();
+pages.forEach(p=>{
+const b=document.createElement("button");
+b.textContent=p.title||"Untitled";
+if(p.id===selected)b.className="active";
+b.onclick=()=>{selected=p.id;render()};
+$("pages").append(b);
+});
+let p=pages.find(p=>p.id===selected);
+$("titleInput").value=p.title;
+if(p.html!==undefined){
+$("editor").innerHTML=p.html;
+}else{
+$("editor").textContent=p.text||"";
 }
-function saveEditor(){
- const p=pages.find(p=>p.id===selected);
- p.title=$("pageTitle").value;
- p.text=$("pageText").value;
- persist();
- $("saveStatus").textContent="Saved ♡";
- $("pages").querySelectorAll("button")
-   .forEach((b,i)=>b.textContent=pages[i].title||"Untitled");
 }
-$("pageTitle").addEventListener("input",saveEditor);
-$("pageText").addEventListener("input",saveEditor);
+function save(){
+let p=pages.find(p=>p.id===selected);
+p.title=$("titleInput").value;
+p.html=$("editor").innerHTML;
+persist();
+$("pages").querySelectorAll("button").forEach((b,i)=>b.textContent=pages[i].title||"Untitled");
+}
+$("editor").addEventListener("input",save);
+$("titleInput").addEventListener("input",save);
 function addPage(){
- const p={id:Date.now(),title:"✧ Untitled",text:""};
- pages.push(p);selected=p.id;persist();render();
- $("pageTitle").focus();
+let p={id:Date.now(),title:"✧ New page",html:""};
+pages.push(p);
+selected=p.id;
+persist();render();
+$("titleInput").focus();
 }
-function exportNotes(){
- const blob=new Blob([JSON.stringify(pages,null,2)],{type:"application/json"});
- const a=document.createElement("a");
- a.href=URL.createObjectURL(blob);
- a.download="moonnotes-backup.json";
- a.click();
- setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+function deletePage(){
+if(pages.length===1)return alert("Keep at least one page ♡");
+if(!confirm("Delete this page? Back it up first if you want to keep it."))return;
+pages=pages.filter(p=>p.id!==selected);
+selected=pages[0].id;
+persist();render();
 }
-function getValidUrl(){
- try{
-  const u=new URL($("soundUrl").value.trim());
-  if(u.protocol!=="https:" || !["soundcloud.com","www.soundcloud.com","on.soundcloud.com"].includes(u.hostname)) return null;
-  return u.href;
- }catch{return null;}
+function backup(){
+const blob=new Blob([JSON.stringify(pages,null,2)],{type:"application/json"});
+const a=document.createElement("a");
+a.href=URL.createObjectURL(blob);
+a.download="moonnotes-backup.json";
+a.click();
+setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+// Editing toolbar
+const editor=$("editor");
+$("toolbar").addEventListener("mousedown",e=>{
+if(e.target.closest("button")&&e.target.closest("button").id!=="photoButton"){
+e.preventDefault();
+}
+});
+$("toolbar").querySelectorAll("[data-cmd],[data-block]").forEach(b=>{
+b.onclick=()=>{
+editor.focus();
+if(b.dataset.cmd)document.execCommand(b.dataset.cmd,false,null);
+else document.execCommand("formatBlock",false,b.dataset.block);
+save();
+};
+});
+// Paste plain text to avoid importing unsafe markup.
+editor.addEventListener("paste",e=>{
+const text=e.clipboardData.getData("text/plain");
+if(text){
+e.preventDefault();
+document.execCommand("insertText",false,text);
+}
+});
+// Remember insertion position for photos.
+editor.addEventListener("mouseup",rememberSelection);
+editor.addEventListener("keyup",rememberSelection);
+function rememberSelection(){
+const s=window.getSelection();
+if(s.rangeCount&&editor.contains(s.anchorNode)){
+savedRange=s.getRangeAt(0).cloneRange();
+}
+}
+$("photoButton").onclick=()=>{
+rememberSelection();
+$("photoInput").click();
+};
+$("photoInput").onchange=async e=>{
+const f=e.target.files[0];
+if(!f)return;
+if(!f.type.startsWith("image/"))return alert("Choose an image.");
+try{
+const img=await createImageBitmap(f);
+const scale=Math.min(1,1000/img.width,1000/img.height);
+const c=document.createElement("canvas");
+c.width=Math.max(1,Math.round(img.width*scale));
+c.height=Math.max(1,Math.round(img.height*scale));
+c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+img.close();
+const data=c.toDataURL("image/jpeg",.72);
+editor.focus();
+const s=window.getSelection();
+if(savedRange&&editor.contains(savedRange.commonAncestorContainer)){
+s.removeAllRanges();s.addRange(savedRange);
+}else{
+const r=document.createRange();
+r.selectNodeContents(editor);r.collapse(false);
+s.removeAllRanges();s.addRange(r);
+}
+const fig=document.createElement("figure");
+const photo=document.createElement("img");
+photo.src=data;
+photo.alt="Journal photograph";
+const cap=document.createElement("figcaption");
+cap.setAttribute("contenteditable","true");
+fig.append(photo,cap);
+const r=s.getRangeAt(0);
+r.deleteContents();
+r.insertNode(fig);
+const after=document.createElement("p");
+after.append(document.createElement("br"));
+fig.after(after);
+save();
+cap.focus();
+}catch(err){alert("Couldn't insert that photo. Try a JPG or PNG.");}
+e.target.value="";
+};
+// SoundCloud
+function validSound(){
+try{
+const u=new URL($("soundUrl").value.trim());
+if(u.protocol!=="https:")return null;
+if(!["soundcloud.com","www.soundcloud.com"].includes(u.hostname))return null;
+return u.href;
+}catch(e){return null;}
 }
 function connectMusic(){
- const url=getValidUrl();
- if(!url){alert("Please paste a valid SoundCloud link.");return;}
- localStorage.setItem(musicKey,url);
- const iframe=document.createElement("iframe");
- iframe.className="player";
- iframe.title="SoundCloud playlist";
- iframe.allow="autoplay";
- iframe.referrerPolicy="no-referrer-when-downgrade";
- iframe.src="https://w.soundcloud.com/player/?url="+encodeURIComponent(url)+"&color=%23b28dce&auto_play=false";
- $("music").replaceChildren(iframe);
+const url=validSound();
+if(!url)return alert("Paste a full public soundcloud.com URL.");
+localStorage.setItem(MUSIC_KEY,url);
+$("musicArea").style.display="block";
+ready=false;
+$("player").src="https://w.soundcloud.com/player/?url="+encodeURIComponent(url)+"&color=%23b38ad1&auto_play=false";
+if(typeof SC!=="undefined"){
+widget=SC.Widget($("player"));
+widget.bind(SC.Widget.Events.READY,()=>{
+ready=true;
+widget.setVolume(Number($("volume").value));
+enableShuffleFinish();
+});
+}else{
+widget=null;
 }
-function openMusic(){
- const url=getValidUrl();
- if(!url){alert("Add your SoundCloud link first.");return;}
- window.open(url,"_blank","noopener,noreferrer");
 }
-$("soundUrl").value=localStorage.getItem(musicKey)||"";
+function musicControl(action){
+if(!ready||!widget)return alert("SoundCloud hasn't connected. Use its player or open SoundCloud directly.");
+if(action==="toggle")widget.toggle();
+if(action==="prev")widget.prev();
+if(action==="next")widget.next();
+}
+$("volume").oninput=e=>{
+const v=Number(e.target.value);
+$("volumeLabel").textContent=v+"%";
+if(ready&&widget)widget.setVolume(v);
+};
+function openSoundCloud(){
+const url=validSound();
+if(url)window.open(url,"_blank","noopener,noreferrer");
+else alert("Paste your SoundCloud link first.");
+}
+$("soundUrl").value=localStorage.getItem(MUSIC_KEY)||"";
 render();
 if($("soundUrl").value)connectMusic();
+  
+let shuffleOn = false;
+let shuffleHistory = [];
+
+function toggleShuffle() {
+  shuffleOn = !shuffleOn;
+  const btn = document.getElementById("shuffleBtn");
+
+  btn.style.background = shuffleOn ? "#caa6eb" : "#eee0fa";
+  btn.style.color = shuffleOn ? "#fff" : "#654884";
+  btn.title = shuffleOn ? "Shuffle on" : "Shuffle off";
+
+  shuffleHistory = [];
+  if (shuffleOn && ready && widget) {
+    widget.getCurrentSoundIndex(i => shuffleHistory.push(i));
+  }
+}
+
+function playRandomTrack() {
+  if (!ready || !widget) return;
+
+  widget.getSounds(sounds => {
+    if (!sounds || sounds.length < 2) return;
+
+    widget.getCurrentSoundIndex(current => {
+      const choices = sounds.map((_, i) => i)
+        .filter(i => i !== current);
+
+      const next = choices[Math.floor(Math.random() * choices.length)];
+      shuffleHistory.push(current);
+      widget.skip(next);
+      widget.play();
+    });
+  });
+}
+
+// Make our next/previous buttons respect shuffle mode.
+function musicControl(action) {
+  if (!ready || !widget) {
+    alert("SoundCloud hasn't connected yet.");
+    return;
+  }
+
+  if (action === "toggle") widget.toggle();
+
+  if (action === "next") {
+    if (shuffleOn) playRandomTrack();
+    else widget.next();
+  }
+
+  if (action === "prev") {
+    if (shuffleOn && shuffleHistory.length) {
+      widget.skip(shuffleHistory.pop());
+      widget.play();
+    } else {
+      widget.prev();
+    }
+  }
+}
+
+// Shuffle automatically after each song finishes.
+function enableShuffleFinish() {
+  if (!widget || typeof SC === "undefined") return;
+
+  widget.bind(SC.Widget.Events.FINISH, () => {
+    if (shuffleOn) playRandomTrack();
+  });
+}
 </script>
 </body>
 </html>
+
